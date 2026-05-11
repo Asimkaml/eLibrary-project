@@ -7,7 +7,7 @@ const api = axios.create({
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
-
+console.log(api.defaults.baseURL)
 // ── 401 interceptor — clear Redux auth state and redirect ──────────────────
 api.interceptors.response.use(
   (response) => response,
