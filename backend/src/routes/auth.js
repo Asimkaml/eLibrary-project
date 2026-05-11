@@ -24,7 +24,7 @@ const authLimiter = rateLimit({
 
 router.post('/register', authLimiter, register);
 router.post('/login',    authLimiter, login);
-router.post('/logout',   authenticate, logout);
+router.post('api/logout',   authenticate, logout);
 router.get('/me',        authenticate, me);
 router.put('/preferences', authenticate, updatePreferences);
 router.post('/role-request',    authenticate, requestAuthorRole);
