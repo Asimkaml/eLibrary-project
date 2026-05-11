@@ -24,29 +24,29 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.set('trust proxy', 1);
 
-// ─── Security headers ──────────────────────────────────────────────────────
-app.use(
-  helmet({
-    crossOriginResourcePolicy: { policy: 'cross-origin' }, // allow PDF streaming cross-origin
-    contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
-      directives: {
-        defaultSrc:     ["'self'"],
-        scriptSrc:      ["'self'"],             // pdfjs worker is now bundled locally
-        styleSrc:       ["'self'", "'unsafe-inline'"], // Tailwind injects inline styles
-        imgSrc:         ["'self'", 'data:', 'blob:'],
-        connectSrc:     ["'self'"],
-        workerSrc:      ["'self'", 'blob:'],    // pdfjs spawns a worker blob
-        objectSrc:      ["'none'"],
-        frameAncestors: ["'none'"],
-      },
-    } : false, // disabled in development for convenience
-  })
-);
+// // ─── Security headers ──────────────────────────────────────────────────────
+// app.use(
+//   helmet({
+//     crossOriginResourcePolicy: { policy: 'cross-origin' }, // allow PDF streaming cross-origin
+//     contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
+//       directives: {
+//         defaultSrc:     ["'self'"],
+//         scriptSrc:      ["'self'"],             // pdfjs worker is now bundled locally
+//         styleSrc:       ["'self'", "'unsafe-inline'"], // Tailwind injects inline styles
+//         imgSrc:         ["'self'", 'data:', 'blob:'],
+//         connectSrc: ["'self'", "https://elib-backend-production-57f3.up.railway.app"]
+//         workerSrc:      ["'self'", 'blob:'],    // pdfjs spawns a worker blob
+//         objectSrc:      ["'none'"],
+//         frameAncestors: ["'none'"],
+//       },
+//     } : false, // disabled in development for convenience
+//   })
+// );
 
 // ─── CORS ─────────────────────────────────────────────────────────────────
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+    origin: '*',
     credentials: true, // required for HTTP-only cookies
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
